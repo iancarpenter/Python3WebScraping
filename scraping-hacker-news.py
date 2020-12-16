@@ -28,7 +28,7 @@ if __name__ == "__main__":
     
     result = requests.get(PAGE)
 
-    assert result.status_code == 200, f"Got status code {result.status_code} \ which isn't a success"
+    assert result.status_code == 200, f"Got status code {result.status_code} \\ which isn't a success"
     
     source = result.text
 
@@ -40,6 +40,7 @@ if __name__ == "__main__":
         #print(result)
         title = result.find('a', class_='storylink')
         print(title)
+        
         
 
     #print(soup)
