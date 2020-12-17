@@ -35,12 +35,13 @@ if __name__ == "__main__":
     soup = BeautifulSoup(source, 'html.parser')
 
     results = soup.find_all('td', class_='title')
-
+    rows = []
     for result in results:
-        #print(result)
         title = result.find('a', class_='storylink')
-        print(title)
-        
+        if title is not None:            
+            rows.append(title.text)        
+
+    print(rows)   
         
 
     #print(soup)
