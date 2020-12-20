@@ -34,16 +34,43 @@ if __name__ == "__main__":
 
     soup = BeautifulSoup(source, 'html.parser')
 
-    results = soup.find_all('td', class_='title')
-    rows = []
+    results = soup.find_all('tr', class_='athing')
+    subtext = soup.find_all('td', 'subtext')
+    
+    result_working = []
+    subtext_working = []
+    combined = []
+    counter = 0
     for result in results:
-        title = result.find('a', class_='storylink')
+        # title = result.find('a', class_='storylink')        
+        #if title is not None:            
+        #    rows.append(title.text)                
+        #print(result)
+        #print(subtext[counter])        
+                
+        result_working.append(result)
+
+        # top row of hacker news  
+        rank = result.find('span', class_='rank')
+        if rank is not None:
+            print('the rank is ' + rank.text)
+
+        title = result.find('a', class_='storylink')        
         if title is not None:            
-            rows.append(title.text)        
+            print('the title is ' + title.text)
+    
+        site_str = result.find('span', class_='sitestr')
+        if site_str is not None:
+            print('the site_str is ' + site_str.text)
 
-    print(rows)   
+        # second row of hacker news        
         
+        subtext_working.append(subtext[counter])
+        combined += result_working + subtext_working
+        counter += 1                    
 
-    #print(soup)
+    print(combined[0])
+    print(combined[1])
 
-    #get_hacker_news_information(soup)
+    
+    
