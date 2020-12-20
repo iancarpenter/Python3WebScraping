@@ -8,21 +8,6 @@ from bs4 import BeautifulSoup
 PAGE = "https://news.ycombinator.com/"
 OK = 200
 
-# def get_hacker_news_information(soup):
-#     '''Return a dictionary with the information from Hackernews'''
-    
-#     # news = soup.find_all('table', class_='itemlist')
-
-#     #print(news[0])
-
-#     for i in soup.find_all('table', class_='itemlist').find('tr'):
-#         print(i.find('a', class_='storylink').text)        
-        
-
-
-
-# create csv file
-
 
 if __name__ == "__main__":
     
@@ -73,6 +58,9 @@ if __name__ == "__main__":
             print('the age is ' + age.text) 
 
         # comment count
+        comment_count = subtext[counter].find(lambda tag:tag.name=="a" and "comments" in tag.text)
+        if comment_count is not None:
+            print('the comment count is ' + comment_count.text)
         
         subtext_working.append(subtext[counter])
         combined += result_working + subtext_working
