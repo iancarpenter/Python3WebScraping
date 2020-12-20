@@ -4,6 +4,7 @@ containing the title, site, score, user id, comment count
 """
 import requests
 from bs4 import BeautifulSoup
+import re
 
 PAGE = "https://news.ycombinator.com/"
 OK = 200
@@ -58,8 +59,13 @@ if __name__ == "__main__":
             print('the age is ' + age.text) 
 
         # comment count
-        comment_count = subtext[counter].find(lambda tag:tag.name=="a" and "comments" in tag.text)
-        if comment_count is not None:
+        # this works
+        # comment_count = subtext[counter].find(lambda tag:tag.name=="a" and "comments" in tag.text)
+        # comment_count = subtext[counter].find('a') # finds the first a tag
+        # comment_count = subtext[counter].find('a:contains("comments")') # does not work
+        # comment_count = subtext[counter].find('a', re.compile(r 'comments'))
+        comment_count = subtext[counter].find('span', class_='age').find_next_sibling('a').find_next_sibling('a')
+        if comment_count is not None:              
             print('the comment count is ' + comment_count.text)
         
         subtext_working.append(subtext[counter])
