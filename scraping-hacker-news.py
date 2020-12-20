@@ -42,12 +42,7 @@ if __name__ == "__main__":
     combined = []
     counter = 0
     for result in results:
-        # title = result.find('a', class_='storylink')        
-        #if title is not None:            
-        #    rows.append(title.text)                
-        #print(result)
-        #print(subtext[counter])        
-                
+                        
         result_working.append(result)
 
         # top row of hacker news  
@@ -63,7 +58,21 @@ if __name__ == "__main__":
         if site_str is not None:
             print('the site_str is ' + site_str.text)
 
-        # second row of hacker news        
+        # second row of hacker news
+        score = subtext[counter].find('span', class_='score')        
+        if score is not None:
+            print('the score is ' + score.text)
+        
+        hn_user = subtext[counter].find('a', class_='hnuser')        
+        if hn_user is not None:
+            print('the hn user is ' + hn_user.text)
+        
+        age_enclosing_tag = subtext[counter].find('span', class_='age')
+        age = age_enclosing_tag.find('a')
+        if age is not None:
+            print('the age is ' + age.text) 
+
+        # comment count
         
         subtext_working.append(subtext[counter])
         combined += result_working + subtext_working
