@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 PAGE = "https://news.ycombinator.com/"
 OK = 200
 
-def first_row_of_hacker_news():
+def first_row_of_hacker_news(result):
     # first row of hacker news  
     rank = result.find('span', class_='rank')
     if rank is not None:
@@ -23,7 +23,7 @@ def first_row_of_hacker_news():
         print('the site_str is ' + site_str.text)
 
 
-def second_row_of_hacker_news():
+def second_row_of_hacker_news(subtext, counter):
     # second row of hacker news
     score = subtext[counter].find('span', class_='score')        
     if score is not None:
@@ -46,7 +46,8 @@ def second_row_of_hacker_news():
     if comment_count is not None:              
         print('the comment count is ' + comment_count.text)
 
-if __name__ == "__main__":
+
+def scrape_front_page():
     
     result = requests.get(PAGE)
 
@@ -57,29 +58,25 @@ if __name__ == "__main__":
     soup = BeautifulSoup(source, 'html.parser')
 
     results = soup.find_all('tr', class_='athing')
-    subtext = soup.find_all('td', 'subtext')
     
-    result_working = []
-    subtext_working = []
-    combined = []
+    subtext = soup.find_all('td', 'subtext')
+        
     counter = 0
 
     for result in results:
-                        
-        result_working.append(result)
-
+                                
         # top row of hacker news  
-        first_row_of_hacker_news()
+        first_row_of_hacker_news(result)
 
         # second row of hacker news
-        second_row_of_hacker_news()
+        second_row_of_hacker_news(subtext, counter)                
         
-        subtext_working.append(subtext[counter])
-        combined += result_working + subtext_working
         counter += 1                    
 
-    print(combined[0])
-    print(combined[1])
+
+if __name__ == "__main__":
+    scrape_front_page()    
+
 
     
     
