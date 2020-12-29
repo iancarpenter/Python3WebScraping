@@ -41,11 +41,12 @@ def second_row_of_hacker_news(hn_second_line, counter):
     
     # the comment count is in a block of html that requires some extra steps to extract. 
     # Two solutions I found, one using a lambda and one using find_next_sibling
-    # comment_count = subtext[counter].find(lambda tag:tag.name=="a" and "comments" in tag.text)        
+    #comment_count = hn_second_line[counter].find(lambda tag:tag.name=="a" and "comments" in tag.text)        
     comment_count = hn_second_line[counter].find('span', class_='age').find_next_sibling('a').find_next_sibling('a')
     
     if comment_count is not None:              
         print('the comment count is ' + comment_count.text)
+
 
 def get_html():
     
