@@ -61,7 +61,7 @@ def get_html():
     return soup
 
 
-def scrape_front_page():
+def scrape_hn_front_page():
     
     soup = get_html()
     
@@ -83,5 +83,5 @@ def scrape_front_page():
 
 
 if __name__ == "__main__":
-    scrape_front_page()    
+    scrape_hn_front_page()    
     
