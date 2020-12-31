@@ -85,6 +85,7 @@ def second_row_of_hacker_news(hn_second_line, counter):
 
 def get_html():
     ''' Using the requests library for handling HTTP and beautiful soup to parse the HTML document
+        When making a request, it will raise an assert error if anything other than 200 is retured 
 
        Args: None
 
