@@ -1,6 +1,6 @@
 """
-Produces a CSV file in the same directory where this module is run from
-containing the title, site, score, user id, comment count
+Produces a CSV file in the same directory where this module is run from.
+Each row contains the title, site, score, user id, comment count
 """
 import csv
 import requests
@@ -16,8 +16,7 @@ def first_row_of_hacker_news(result):
     rank_rtn = ''
     title_rtn = ''
     site_str_rtn = ''
-
-    # first row of hacker news  
+     
     rank = result.find('span', class_='rank')
     if rank is not None:
         rank_rtn = rank.text
@@ -34,8 +33,7 @@ def first_row_of_hacker_news(result):
 
 
 def second_row_of_hacker_news(hn_second_line, counter):
-    # second row of hacker news
-    
+        
     score_rtn = ''
     hn_user_rtn = ''
     age_rtn = ''
@@ -84,11 +82,9 @@ def extract_hn_to_list(hn_first_line, hn_second_line):
     data = []
 
     for result in hn_first_line:
-
-        # top row of hacker news  
+        
         rank, title, site_str = first_row_of_hacker_news(result)
-
-        # second row of hacker news
+        
         score, hn_user, age, comment_count = second_row_of_hacker_news(hn_second_line, counter)                
 
         data.append([rank, title, site_str, score, hn_user, age, comment_count])
@@ -100,8 +96,7 @@ def extract_hn_to_list(hn_first_line, hn_second_line):
 
 def create_csv_file(hn_list):
     with open(CSV_FILE_NAME, 'w', newline='') as myfile:
-        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-        # wr.writerow(["rank", "title", "site_str", "score", "hn_user" , "age", "comment_count"])
+        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)        
         wr.writerow(CSV_HEADER)
         for i in hn_list:
             wr.writerow(i)
