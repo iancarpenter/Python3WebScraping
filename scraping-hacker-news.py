@@ -8,7 +8,8 @@ from bs4 import BeautifulSoup
 
 PAGE = "https://news.ycombinator.com/"
 OK = 200
-
+CSV_HEADER = ["rank", "title", "site_str", "score", "hn_user" , "age", "comment_count"]
+CSV_FILE_NAME = 'hn.csv'
 
 def first_row_of_hacker_news(result):
     
@@ -97,6 +98,15 @@ def extract_hn_to_list(hn_first_line, hn_second_line):
     return data
 
 
+def create_csv_file(hn_list):
+    with open(CSV_FILE_NAME, 'w', newline='') as myfile:
+        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+        # wr.writerow(["rank", "title", "site_str", "score", "hn_user" , "age", "comment_count"])
+        wr.writerow(CSV_HEADER)
+        for i in hn_list:
+            wr.writerow(i)
+
+
 def scrape_hn_front_page():
         
     soup = get_html()
@@ -107,13 +117,7 @@ def scrape_hn_front_page():
         
     hn_list = extract_hn_to_list(hn_first_line, hn_second_line)                    
 
-    #for i in hn_list:
-    #    print(i)
-    with open('hn.csv', 'w', newline='') as myfile:
-        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-        for i in hn_list:
-            wr.writerow(i)
-
+    create_csv_file(hn_list)
 
                 
 if __name__ == "__main__":
