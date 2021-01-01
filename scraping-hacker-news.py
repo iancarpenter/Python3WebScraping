@@ -133,6 +133,15 @@ def extract_hn_to_list(hn_first_line, hn_second_line):
 
 
 def create_csv_file(hn_list):
+    ''' creates a csv file in the location that this module
+        was run from. The filename is determined by the global
+        constant CSV_FILE_NAME.    
+
+        Args: hn_list(list): list of the hacker news stories to
+        be written to csv file
+        
+        Return: None
+    '''
     with open(CSV_FILE_NAME, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
         wr.writerow(CSV_HEADER)
